@@ -1,0 +1,16 @@
+api_branch : origin/master
+api_parser : ~
+api_cfgmod : clone
+api_runner : ~
+api_paths  : src
+env_make   : ~
+env_prep   : get-composer
+env_post   : ci-coveralls,ci-codacy
+php_conf   : timezone
+php_exts   : igbinary,redis,memcached
+app_prep   : dep-composer
+app_post   : ~
+app_path   : bin/teavee-block-manager
+pkg_name   : teavee-block-manager-bundle
+pkg_desc   : "an extensible content and asset coordinator (CMS-ish) that offers many features and configuration options while retaining a simple API."
+pkg_bndl   : true

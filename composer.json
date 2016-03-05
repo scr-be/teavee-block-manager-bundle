@@ -1,0 +1,64 @@
+{
+    "name"        : "scr-be/teavee-block-manager-bundle",
+    "license"     : "MIT",
+    "type"        : "project",
+    "homepage"    : "https://scr.be/teavee-block-manager-bundle",
+    "description" : "An extensible content and asset coordinator (CMS-ish) that offers many features and configuration options while retaining a simple API.",
+    "support" : {
+        "email"  : "rmf@scr.be",
+        "issues" : "https://scr.be/teavee-block-manager-bundle/issues",
+        "source" : "https://scr.be/teavee-block-manager-bundle/git",
+        "irc"    : "irc://irc.efnet.org/scribe"
+    },
+    "keywords"   : [
+        "teavee-block-manager-bundle", "rmf", "scribe", "content", "block", "asset"
+    ],
+    "authors"    : [
+        {
+            "name"     : "Rob Frawley 2nd",
+            "email"    : "rmf@scr.be",
+            "homepage" : "https://scr.be/rmf",
+            "role"     : "Project Lead"
+        }
+    ],
+    "require" : {
+        "php"                                 : "~5.6|~7.0",
+        "scr-be/augustus-primitive-library"   : "~0.3",
+        "scr-be/wonka-bundle"                 : "~0.3",
+        "scr-be/arthur-doctrine-uuid-library" : "~0.2",
+        "scr-be/teavee-object-cache-bundle"   : "~2.4",
+        "symfony/dependency-injection"        : "~2.8|~3.0"
+    },
+    "require-dev" : {
+        "symfony/symfony"        : "~2.8|~3.0",
+        "symfony/monolog-bundle" : "~2.8|~3.0",
+        "symfony/debug-bundle"   : "~2.8|~3.0",
+        "symfony/debug"          : "~2.8|~3.0",
+        "symfony/stopwatch"      : "~2.8|~3.0",
+        "symfony/var-dumper"     : "~2.8|~3.0",
+        "symfony/phpunit-bridge" : "~2.8|~3.0",
+        "phpunit/phpunit"        : "~5.0",
+        "codacy/coverage"        : "~1.0",
+        "satooshi/php-coveralls" : "~0.7"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Scribe\\Teavee\\BlockManagerBundle\\" : "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "Scribe\\Teavee\\BlockManagerBundle\\Tests\\" : "tests/"
+        }
+    },
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+    "config": {
+        "bin-dir" : "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master" : "0.1-dev"
+        }
+    }
+}
