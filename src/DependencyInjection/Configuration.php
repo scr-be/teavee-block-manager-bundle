@@ -13,6 +13,7 @@
 namespace Scribe\Teavee\BlockManagerBundle\DependencyInjection;
 
 use Scribe\WonkaBundle\Component\DependencyInjection\AbstractConfiguration;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
  * Class Configuration.
