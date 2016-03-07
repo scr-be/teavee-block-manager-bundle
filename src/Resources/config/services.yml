@@ -1,0 +1,85 @@
+---
+
+#
+# This file is part of the Teavee Block Manager Bundle.
+#
+# (c) Scribe Inc.     <oss@scr.be>
+# (c) Rob Frawley 2nd <rmf@scr.be>
+#
+# For the full copyright and license information, please view the LICENSE.md
+# file that was distributed with this source code.
+#
+
+parameters :
+
+    # Key Generator
+
+    s.teavee_object_cache.key_generator.class    : Scribe\Teavee\BlockManagerBundle\Component\Generator\KeyGenerator
+
+    # Cache Registrar
+
+    s.teavee_object_cache.registrar.class        : Scribe\Teavee\BlockManagerBundle\DependencyInjection\Compiler\Registrar\CacheCompilerRegistrar
+
+    # Cache Manager
+
+    s.teavee_object_cache.manager.class          : Scribe\Teavee\BlockManagerBundle\Component\Manager\CacheManager
+
+    # Cache Methods (Memcached/Mock)
+
+    s.teavee_object_cache.attendant_memcached.class : Scribe\Teavee\BlockManagerBundle\Component\Cache\Memcached\MemcachedAttendant
+    s.teavee_object_cache.attendant_mock.class      : Scribe\Teavee\BlockManagerBundle\Component\Cache\Mock\MockAttendant
+
+services :
+
+    # Key Generator
+
+    s.teavee_object_cache.key_generator :
+        class : "%s.teavee_object_cache.key_generator.class%"
+        calls :
+            - [ setPrefix,    [ "%s.teavee_object_cache.generator.prefix%"    ] ]
+            - [ setAlgorithm, [ "%s.teavee_object_cache.generator.algorithm%" ] ]
+
+    # Cache Registrar
+
+    s.teavee_object_cache.registrar :
+        class : "%s.teavee_object_cache.registrar.class%"
+
+    # Cache Manager
+
+    s.cache :
+        class     : "%s.teavee_object_cache.manager.class%"
+        arguments :
+            - "%s.teavee_object_cache.enabled%"
+        calls :
+            - [ setRegistrar, [ "@s.teavee_object_cache.registrar" ] ]
+
+    s.teavee_object_cache :
+        alias : s.cache
+
+    s.teavee_object_cache.chain :
+        alias : s.cache
+
+    # Cache Attendants
+
+    s.teavee_object_cache.attendant_memcached :
+        class     : "%s.teavee_object_cache.attendant_memcached.class%"
+        arguments :
+            - "%s.teavee_object_cache.attendant.memcached.general.enabled%"
+            - "%s.teavee_object_cache.attendant.memcached.general.ttl%"
+        calls :
+            - [ setKeyGenerator, [ "@s.teavee_object_cache.key_generator" ] ]
+            - [ setOptions,      [ "%s.teavee_object_cache.attendant.memcached.options%" ] ]
+            - [ setServers,      [ "%s.teavee_object_cache.attendant.memcached.servers%" ] ]
+        tags  :
+            - { name : s.teavee_object_cache.attendant, priority : "%s.teavee_object_cache.attendant.memcached.general.priority%" }
+
+    s.teavee_object_cache.attendant_mock :
+        class     : "%s.teavee_object_cache.attendant_mock.class%"
+        arguments :
+            - "%s.teavee_object_cache.attendant.mock.general.enabled%"
+        calls :
+            - [ setKeyGenerator, [ "@s.teavee_object_cache.key_generator" ] ]
+        tags  :
+            - { name : s.teavee_object_cache.attendant, priority : "%s.teavee_object_cache.attendant.mock.general.priority%" }
+
+...
